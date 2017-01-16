@@ -27,7 +27,7 @@ class App extends React.Component{
    //  const { username, password, clientType }= event;
         let self = this;
         console.log(username, password, clientType);
-        axios.post('webapi/login', {
+        axios.post('CouponWebAppPhase2/webapi/login', { //TODO  for pdoruction 'CouponWebAppPhase2/webapi/login'
             username: username,
             password: password,
             clientType: clientType
@@ -66,14 +66,14 @@ class App extends React.Component{
   render() {
       const isLoggedIn = this.state.didLoggedIn;
       const errorMessage = this.state.errorMessage;
-      let DEBUG = true;
+      let DEBUG = true; //TODO DEBUG mode
       let renderElement = null;
       if (!DEBUG) {
-          if (!isLoggedIn) { // if (!isLoggedIn) AND CLIENT TYPE
+          if (!isLoggedIn) { //TODO if (!isLoggedIn) AND CLIENT TYPE
               renderElement = <LoginForm loginUser={this.handleLogin.bind(this)}/>;
           } else {
               renderElement = <Dashboard onLogoutClick={this.handleLogoutClick} clientType={this.state.clientType}/>;
-              // this is in server mode running : clientType={this.state.clientType} OR  clientType="admin"
+              //TODO this is in server mode running : clientType={this.state.clientType} OR  clientType="admin"
           }
       }else{
           //ADMIN

@@ -31,10 +31,8 @@ class Admin extends React.Component {
 
     fetchCompanies(){
         let self = this;
-        axios.get('/src/data/Company.json') // '/CouponWebAppPhase2/webapi/admin/companies'
-        // '/src/data/Company.json'
+        axios.get('/src/data/Company.json') //TODO debug '/CouponWebAppPhase2/webapi/admin/companies'
             .then(function (response) {
-            //    console.log(response.data);
                 let data = response.data;
                 self.setState({ companies: data
                 });
@@ -43,26 +41,11 @@ class Admin extends React.Component {
                 console.log(error.response.data);
                 self.setState({errorMessage: error.response.data});
             });
-        // $.ajax({
-        //     method: 'GET',
-        //     url: '/CouponWebAppPhase2/webapi/admin/companies', //      url: '/src/data/Company.json',   url: 'webapi/admin/companies',
-        //     success: (companies) => {
-        //         this.setState({ companies: companies });
-        //         console.log(companies)
-        //     }
-        // })
-        //     .catch(function (error) {
-        //                 console.log(error.response.data);
-        //                 self.setState({errorMessage: error.response.data});
-        //              });
-        // ;
     }
     fetchCustomers(){
         let self = this;
-        axios.get('/src/data/Customer.json')// '/CouponWebAppPhase2/webapi/admin/customers'
-        //'/src/data/Customer.json'
+        axios.get('/src/data/Customer.json')//TODO '/CouponWebAppPhase2/webapi/admin/customers'
             .then(function (response) {
-             //   console.log(response.data);
                 let data = response.data;
                 self.setState({ customers: data
                 });
@@ -71,23 +54,9 @@ class Admin extends React.Component {
                 console.log(error.response.data);
                 self.setState({errorMessage: error.response.data});
             });
-        // $.ajax({
-        //     method: 'GET',
-        //     url: '/CouponWebAppPhase2/webapi/admin/customers',// url: '/src/data/Customer.json',  OR   url: '/webapi/admin/customers',
-        //     success: (customers) => {
-        //         this.setState({ customers: customers });
-        //         console.log(customers)
-        //     }
-        // })
-        //     .catch(function (error) {
-        //         console.log(error.response.data);
-        //         self.setState({errorMessage: error.response.data});
-        //     });
-        // ;
     }
 
     deleteCompany(companyId) {
-
         const companies = this.state.companies.filter(
             company => company.id !== companyId
         );
@@ -101,9 +70,11 @@ class Admin extends React.Component {
         })
             .then(function (response) {
                 console.log(response);
+                //TODO 1 give admin message deleted successfully
             })
             .catch(function (error) {
                 console.log(error);
+                //TODO  2 give admin message deleted NOT successfully
             });
     }
     deleteCustomer(customerId) {
@@ -120,10 +91,16 @@ class Admin extends React.Component {
         })
             .then(function (response) {
                 console.log(response);
+                //TODO  3 give admin message deleted successfully
             })
             .catch(function (error) {
                 console.log(error);
+                //TODO 4  give admin message deleted NOT successfully
             });
+    }
+
+    editCompany(company){
+        //TODO
     }
 
     renderCompaniesLists(companiesData){
@@ -131,7 +108,7 @@ class Admin extends React.Component {
             return (<div>
                 <h1>Companies</h1>
                 {this.renderCompanyForm()}
-            <ItemList deleteCompany={this.deleteCompany.bind(this)} companies={companiesData} />
+            <ItemList deleteCompany={this.deleteCompany.bind(this)} editCompany={this.editCompany.bind(this)} companies={companiesData} />
             </div>);
        // return data;
     }
@@ -145,11 +122,11 @@ class Admin extends React.Component {
     }
 
     render() {
-        const listItems = this.renderCompaniesLists(this.state.companies);
-        const listItems2 = this.renderCustomersLists(this.state.customers);
+        const companies = this.renderCompaniesLists(this.state.companies);
+        const customers = this.renderCustomersLists(this.state.customers);
         return (
             <div>
-                <Menu dataOne={listItems} dataTwo={listItems2} clientType="Admin"  />
+                <Menu dataOne={companies} dataTwo={customers} clientType="Admin"  />
             </div>
 
         );
@@ -164,6 +141,7 @@ class Admin extends React.Component {
                     <div className="modal-dialog modal-lg" >
                         <div className="modal-content">
                             Create Company form
+                            {/*TODO company form make*/}
                         </div>
                     </div>
                 </div>
@@ -174,25 +152,4 @@ class Admin extends React.Component {
 
 export default Admin;
 
-/*
- { companies.map(company =>
- <div  key={company.id} className="col-md-3">
- <div className="row-fluid">
- <div className="span3 PlanPricing template4">
- <div className="planName"> <span className="price">$99</span>
- <h3>{company.compName}</h3>
- <p>Monthly Plan</p>
- </div>
- <div className="planFeatures">
- <ul>
 
- <li>aasdasdassddasd</li>
-
- </ul>
- </div>
- <p> <a href="#Signup" role="button" data-toggle="modal" className="btn btn-success">Choose Fart </a> </p>
- </div>
- </div>
- </div>
- )}
- */
