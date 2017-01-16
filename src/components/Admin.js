@@ -18,7 +18,8 @@ class Admin extends React.Component {
             apiLink: ["customers", "company", "customer" ],
             companies: [],
             customers: [],
-            errorMessage:''
+            errorMessage: '',
+            serverResponse: ''
         };
     }
 
@@ -63,20 +64,25 @@ class Admin extends React.Component {
         this.handleCompanyDeleteServer(companyId);
         this.setState({ companies: companies });
     }
+
     handleCompanyDeleteServer(id){
+        let self = this;
         axios({
             method: 'delete',
             url: '/CouponWebAppPhase2/webapi/admin/companies/'+id,
         })
             .then(function (response) {
                 console.log(response);
-                //TODO 1 give admin message deleted successfully
+                self.setState({ serverResponse: 'Deleted successfully' });
             })
             .catch(function (error) {
-                console.log(error);
-                //TODO  2 give admin message deleted NOT successfully
+              //  console.log(error);
+                let data = 'Not Deleted successfully reason: '+error.response.data;//TODO adadadad
+                console.log("data is "+data);//TODO sdsdasdaadasdassdasdas
+                self.setState({serverResponse: data});
             });
     }
+
     deleteCustomer(customerId) {
         const customers = this.state.customers.filter(
             customer => customer.id !== customerId
@@ -108,7 +114,7 @@ class Admin extends React.Component {
             return (<div>
                 <h1>Companies</h1>
                 {this.renderCompanyForm()}
-            <ItemList deleteCompany={this.deleteCompany.bind(this)} editCompany={this.editCompany.bind(this)} companies={companiesData} />
+            <ItemList serverResponse={this.state.serverResponse} deleteCompany={this.deleteCompany.bind(this)} editCompany={this.editCompany.bind(this)} companies={companiesData} />
             </div>);
        // return data;
     }

@@ -2,6 +2,7 @@
  * Created by ilya on 21/12/2016.
  */
 import React from 'react';
+import {Modal} from 'react-bootstrap';
 
 class ItemList extends React.Component {
 
@@ -15,8 +16,19 @@ class ItemList extends React.Component {
     }
     companyEdit(company){
         console.log("edit!" + company.compName);
+        this.props.editCompany(company);
     }
+    renderResponseServer(){
+        let responseServ = '';
+        let isResponse = this.props.serverResponse!='';
 
+        if(isResponse){ //TODO ! this.props.serverResponse dassaasdada
+            responseServ =
+                 <Modal.Body>{this.props.serverResponse}</Modal.Body>
+
+        }
+        responseServ;
+    }
     renderCompanies(companies){
         const  data= companies.map(company =>
             <div  key={company.id} className="col-md-3">
@@ -44,6 +56,7 @@ class ItemList extends React.Component {
                         </div>
                     </div>
                 </div>
+                {this.renderResponseServer()}
             </div>
         );
         return data;
